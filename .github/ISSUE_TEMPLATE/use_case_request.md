@@ -1,12 +1,12 @@
 ---
-name: "🌟Use-case request"
+name: "🌟 Use-case request"
 about: Report a use-case to implement
 title: "[Use Case] Write short description here"
 labels: "use case"
 
 ---
 
-### Use Case details 
+### Use Case details
 (Describe the use-case)
 
 ### How should it work?
