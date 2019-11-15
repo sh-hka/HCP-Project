@@ -1,17 +1,7 @@
-from flask import abort
-from flask import Blueprint
-from flask import flash
-from flask import redirect
-from flask import render_template
-from flask import url_for
-from flask_login import login_required
-from flask_login import login_user
-from flask_login import logout_user
+from flask import Blueprint, render_template, redirect, url_for, abort, flash
+from flask_login import login_user, logout_user, login_required
 from itsdangerous import URLSafeTimedSerializer
-
-from app import app
-from app import db
-from app import models
+from app import app, models, db
 from app.forms import user as user_forms
 from app.toolbox import email
 

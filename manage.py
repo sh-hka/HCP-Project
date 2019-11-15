@@ -1,12 +1,7 @@
-from flask_script import Manager
-from flask_script import prompt_bool
-from flask_script import Server
-from flask_script import Shell
+from flask_script import Manager, prompt_bool, Shell, Server
 from termcolor import colored
 
-from app import app
-from app import db
-from app import models
+from app import app, db, models
 
 manager = Manager(app)
 
