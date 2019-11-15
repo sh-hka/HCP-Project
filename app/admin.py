@@ -28,7 +28,6 @@ class ModelView(ModelView):
             )
         return True
 
-
 # Users
 admin.add_view(ModelView(User, db.session))
 
