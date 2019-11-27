@@ -41,3 +41,37 @@
       src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCsxsfZbJtPVehGHrovzrTexLcEXURkUag&callback=initMap&libraries=geometry">
     </script>
 {% endmacro %}
+
+{% macro searchbar(form, isExpanded) %}
+    <div class="ui search search-bar {% if isExpanded %} raised {% else %} basic {% endif %} segment" id="search-bar">
+        <div class="ui big icon input">
+            {{ form.query(name_=form.query.name, id=form.query.name, placeholder=form.query.description, class_="prompt query") }}
+            <i id="search-icon" class="search icon" onclick="search()"></i>
+        </div>
+        {% if form.query.errors %}
+    	    <ul>
+                {% for error in form.query.errors %}
+                    <li class="form-error">{{ error }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+
+        {% if isExpanded %}
+            {{ form.search_range(name_=form.search_range.name, id=form.search_range.name) }}
+            {% if form.search_range.errors %}
+    	        <ul>
+                    {% for error in form.search_range.errors %}
+                        <li class="form-error">{{ error }}</li>
+                    {% endfor %}
+    	        </ul>
+  	        {% endif %}
+        {% endif %}
+    </div>
+
+    <script src="{{  url_for('static', filename='js/search.js') }}"></script>
+
+    <script type="text/javascript">
+        initSearchBar();
+    </script>
+
+{% endmacro %}
