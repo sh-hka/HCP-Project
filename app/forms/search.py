@@ -7,6 +7,12 @@ class Search(Form):
     """ User wants to search for a provider. """
 
     query = StringField(validators=[Length(max=140)], description="Search")
-    lat = FloatField(validators=[DataRequired(), NumberRange(min=-0, max=0)], description="Latitude")
-    lng = FloatField(validators=[DataRequired(), NumberRange(min=-0, max=0)], description="Longitude")
-    search_range = IntegerField(validators=[NumberRange(min=1, max=500)], description="Range")
+    lat = FloatField(
+        validators=[DataRequired(), NumberRange(min=-0, max=0)], description="Latitude"
+    )
+    lng = FloatField(
+        validators=[DataRequired(), NumberRange(min=-0, max=0)], description="Longitude"
+    )
+    search_range = IntegerField(
+        validators=[NumberRange(min=1, max=500)], description="Range"
+    )
