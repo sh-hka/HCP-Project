@@ -26,3 +26,18 @@
     	</ul>
   	{% endif %}
 {% endmacro %}
+
+{% macro map() %}
+
+    <script type="text/javascript" src="{{ url_for('static', filename='js/map/map-utils.js') }}"></script>
+
+    <div class="map" id="map"></div>
+
+    <script src="{{ url_for('static', filename='js/map/map-style.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/map/map-init.js') }}"></script>
+
+    {#  Google Maps API  #}
+    <script
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCsxsfZbJtPVehGHrovzrTexLcEXURkUag&callback=initMap&libraries=geometry">
+    </script>
+{% endmacro %}
