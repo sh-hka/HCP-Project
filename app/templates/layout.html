@@ -23,9 +23,12 @@
 				<title>{{ title }}</title>
 				<!-- Navbar -->
 				<div class="ui attached inverted menu">
-				  	{{ m.nav_link('index', 'Home') }}
-				  	{{ m.nav_link('map', 'Map') }}
-					{{ m.nav_link('contact', 'Contact') }}
+				  	{{ m.nav_link('index', 'Healthcare Credit Provider') }}
+                    {% if current_user.is_authenticated %}
+                        {{ m.nav_link('admin', 'Admin Dashboard') }}
+                    {% else %}
+					    {{ m.nav_link('contact', 'Contact') }}
+                    {% endif %}
 				 	<div class="right menu">
 				 		<!-- User is logged in -->
 				      	{% if current_user.is_authenticated %}
@@ -61,8 +64,5 @@
    		<div id="body" class="body">
    			{% block content %}{% endblock %}
    		</div>
-		<div id="footer">
-            <!-- Empty Footer -->
-		</div>
 	</body>
 </html>
