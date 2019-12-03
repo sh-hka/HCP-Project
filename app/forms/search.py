@@ -8,10 +8,10 @@ class Search(Form):
 
     query = StringField(validators=[Length(max=140)], description="Search")
     lat = FloatField(
-        validators=[DataRequired(), NumberRange(min=-0, max=0)], description="Latitude"
+        validators=[DataRequired(), NumberRange(min=-90, max=90)], description="Latitude"
     )
     lng = FloatField(
-        validators=[DataRequired(), NumberRange(min=-0, max=0)], description="Longitude"
+        validators=[DataRequired(), NumberRange(min=-180, max=180)], description="Longitude"
     )
     search_range = IntegerField(
         validators=[NumberRange(min=1, max=500)], description="Range"
