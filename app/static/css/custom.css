@@ -58,6 +58,6 @@ body {
 }
 
 /* Hide map UI component */
-.gm-style-mtc {
+.gm-style-mtc, .gm-svpc, .gm-fullscreen-control {
    visibility: hidden !important;
 }
