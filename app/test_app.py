@@ -1,6 +1,6 @@
-from flask import Response
 import pytest
 import app
+import app.config
 
 
 def login(client, username, password, url='admin'):
@@ -38,17 +38,32 @@ def test_admin_login_success(client):
     # First, check that access without credentials is HTTP Forbidden (401)
     assert client.get('admin', follow_redirects=True).status_code == 401
 
+    # Don't know how to respond to a WWW-Authenticate, will work on
     # Next, try logging in with the correct credentials
-    #response = login(client, app.config.ADMIN_CREDENTIALS[0], app.config.ADMIN_CREDENTIALS[1])
-    #print(response)
+    """
+    response = login(client, app.config.ADMIN_CREDENTIALS[0], app.config.ADMIN_CREDENTIALS[1])
+    print(response)
+    """
 
 
 def test_retrieve_map_points(client):
     """ Test retrieval of the list of points on the map.
-        Currently the points are random so this test is subject to change.
-        ERROR: <Response streamed [405 METHOD NOT ALLOWED]> when trying to fetch refresh results, will look into """
-    #print(client.get('map/refresh', follow_redirects=True))
-    pass
+        Currently the points are random so this test is subject to change. """
+    X_INTERVAL_LOW, X_INTERVAL_HIGH = 48.8434100, 48.8634100
+    Y_INTERVAL_LOW, Y_INTERVAL_HIGH = 2.3388000, 2.3588000
+
+    # Retrieve the points using a POST, and convert it from a Flask Response object to a dict
+    points = client.post('/map/refresh', follow_redirects=True).get_json()
+    # Check that each point is within range (arbitrary, subject to change once we have real data)
+    for point in points['points']:
+        """ pytest.approx() doesn't support 'approx() <= value <= approx()', excuse the hack to check for equality """
+        # X-coordinate check
+        assert X_INTERVAL_LOW < point[0] or abs(X_INTERVAL_LOW - point[0]) == pytest.approx(0.0) \
+            and X_INTERVAL_HIGH > point[0] or abs(X_INTERVAL_HIGH - point[0]) == pytest.approx(0.0)
+
+        # Y-coordinate check
+        assert Y_INTERVAL_LOW < point[1] or abs(Y_INTERVAL_LOW - point[1]) == pytest.approx(0.0) \
+            and Y_INTERVAL_HIGH > point[1] or abs(Y_INTERVAL_HIGH - point[1]) == pytest.approx(0.0)
 
 
 '''

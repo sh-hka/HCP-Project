@@ -27,4 +27,5 @@ jobs:
     - name: Test with pytest
       run: |
         pip install pytest
-        pytest -W ignore::DeprecationWarning app/test_app.py
+        # Set pytest to ignore any DeprecationWarnings, as WTForms is generating 26 warnings
+        pytest -v -W ignore::DeprecationWarning app/test_app.py
