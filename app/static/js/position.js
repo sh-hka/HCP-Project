@@ -1,4 +1,8 @@
-var currentPos = null;
+// Default startup location
+var currentPos = {
+    lat: 39.90,
+    lng: -75.2
+};
 
 function setCurrentPos(lat, lng) {
     currentPos = {
