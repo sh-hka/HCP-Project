@@ -19,11 +19,9 @@ function initMap() {
     );
     map.mapTypes.set('Map', styledMapType);
     map.setMapTypeId('Map');
-    if (currentPos !== null) {
-        centerMap(map, currentPos);
-    } else {
-        navigator.geolocation.getCurrentPosition(function (position) {
-            centerMap(map, position);
-        });
-    }
+    centerMap(map, currentPos);
+
+    navigator.geolocation.getCurrentPosition(function (position) {
+        centerMap(map, position);
+    });
 }
