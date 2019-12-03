@@ -27,4 +27,4 @@ jobs:
     - name: Test with pytest
       run: |
         pip install pytest
-        pytest
+        pytest -W ignore::DeprecationWarning app/test_app.py
