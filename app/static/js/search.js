@@ -14,18 +14,15 @@ function initSearchBar() {
 
 function search() {
     console.log('search()');
-    // The logic is as follows:
-    // Get the query
     const query_string = search_bar.querySelector('#query').value;
-    // Get the currently selected lat-lng
     const cLatLng = currentPos;
-    // Get search range or default
-    var range = 30; // Default
+    var range = 30; // Stub
     const range_option = search_bar.querySelector('#search_range');
     if (range_option !== null) {
         const range = range_option.value;
     }
-    var query = {query: query_string, position: cLatLng, range: range};
+    var query = JSON.stringify({query: query_string, position: cLatLng, range: range});
     // Now construct the query url:
-    const url = '/search?'
+    const url = '/search?data=' + encodeURIComponent(query);
+    window.location = url;
 }
