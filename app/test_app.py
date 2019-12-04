@@ -5,9 +5,9 @@ import app.config
 
 def login(client, username, password, url='admin'):
     """ Helper function to assist with logging in with a set of credentials. """
-    return client.post(url,
-                       data=dict(username=username, password=password),
-                       follow_redirects=True)
+    return client.post(
+        url, data=dict(username=username, password=password), follow_redirects=True
+    )
 
 
 @pytest.fixture
@@ -58,12 +58,20 @@ def test_retrieve_map_points(client):
     for point in points['points']:
         """ pytest.approx() doesn't support 'approx() <= value <= approx()', excuse the hack to check for equality """
         # X-coordinate check
-        assert X_INTERVAL_LOW < point[0] or abs(X_INTERVAL_LOW - point[0]) == pytest.approx(0.0) \
-            and X_INTERVAL_HIGH > point[0] or abs(X_INTERVAL_HIGH - point[0]) == pytest.approx(0.0)
+        assert (
+            X_INTERVAL_LOW < point[0]
+            or abs(X_INTERVAL_LOW - point[0]) == pytest.approx(0.0)
+            and X_INTERVAL_HIGH > point[0]
+            or abs(X_INTERVAL_HIGH - point[0]) == pytest.approx(0.0)
+        )
 
         # Y-coordinate check
-        assert Y_INTERVAL_LOW < point[1] or abs(Y_INTERVAL_LOW - point[1]) == pytest.approx(0.0) \
-            and Y_INTERVAL_HIGH > point[1] or abs(Y_INTERVAL_HIGH - point[1]) == pytest.approx(0.0)
+        assert (
+            Y_INTERVAL_LOW < point[1]
+            or abs(Y_INTERVAL_LOW - point[1]) == pytest.approx(0.0)
+            and Y_INTERVAL_HIGH > point[1]
+            or abs(Y_INTERVAL_HIGH - point[1]) == pytest.approx(0.0)
+        )
 
 
 '''
