@@ -22,6 +22,10 @@ function initMap() {
     centerMap(map, currentPos);
 
     navigator.geolocation.getCurrentPosition(function (position) {
-        centerMap(map, position);
+        currentPos = {
+            lat: position.coords.latitude,
+            lng: position.coords.longitude
+        };
+        centerMap(map, currentPos);
     });
 }
