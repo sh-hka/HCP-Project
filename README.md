@@ -1,8 +1,8 @@
-# Flask boilerplate code
+# Healthcare Credit Provider
 
 ![License](http://img.shields.io/:license-mit-blue.svg)
 
-I didn't really like the Flask starter projects I found searching the web. I really like Flask and I use it for quite a few projects so I decided to make a clean, readable, documented starter project. I didn't include any [makefile](https://www.wikiwand.com/en/Makefile) or [fabric](http://flask.pocoo.org/docs/0.10/patterns/fabric/) as I feel it imposes a choice to the user of this project, I rather keep things simple (even though the word is subject to interpretation).
+Add description
 
 ## Features
 
@@ -46,8 +46,12 @@ If you have any suggestions or want to help, feel free to drop me a line at <max
 
 ### Frontend
 
-- [Semantic UI](http://semantic-ui.com/) for the global style. Very similar to [Bootstrap](http://getbootstrap.com/).
-- [Leaflet JS](http://leafletjs.com/) for the map. I only added it for the sake of the example.
+- [Semantic UI](http://semantic-ui.com/) for the global style.
+- [Google Maps](https://cloud.google.com/maps-platform/) for the map.
+
+### Test automation
+
+Add details
 
 ## Structure
 
@@ -77,9 +81,9 @@ I did what most people recommend for the application's structure. Basically, eve
 - Run the application.
 
 	```shell script
-    env GOOGLE_MAPS_API_KEY=key HCP_ADMIN=admin_name HCP_PASS=admin_pass \
-    python manage.py runserver
-    ```
+	env GOOGLE_MAPS_API_KEY=key HCP_ADMIN=admin_name HCP_PASS=admin_pass \
+	python manage.py runserver
+	```
 
 - Navigate to `localhost:5000`.
 
@@ -130,17 +134,9 @@ Read [this](http://flask.pocoo.org/docs/0.10/config/) for information on the pos
 - [Screenshots](screenshots/)
 
 
-## Inspiration
+## Project based on:
 
-- [The Flask Mega-Tutorial](http://blog.miguelgrinberg.com/post/the-flask-mega-tutorial-part-i-hello-world).
-- [Explore Flask](https://exploreflask.com/index.html).
-
-
-## Other possibilities
-
-- [flask-boilerplate](https://github.com/mjhea0/flask-boilerplate) by [Michael Herman](https://github.com/mjhea0).
-- [Flask-Foundation](https://github.com/JackStouffer/Flask-Foundation) by [Jack Stouffer](https://github.com/JackStouffer).
-- [fbone](https://github.com/imwilsonxu/fbone) by [Wilson Xu](https://github.com/imwilsonxu).
+- [flask-boilerplate](https://github.com/MaxHalford/flask-boilerplate) fork maintained by [Harsh Parekh](https://github.com/hXtreme) at [hXtreme/flask-boilerplate](https://github.com/hXtreme/flask-boilerplate).
 
 ## License
 
