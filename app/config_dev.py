@@ -1,4 +1,5 @@
 import logging
+from os import environ
 
 from app.config_common import *
 
@@ -9,8 +10,11 @@ DEBUG = True
 # Secret key for generating tokens
 SECRET_KEY = 'houdini'
 
+# Google Maps API key
+GOOGLE_MAPS_API_KEY = environ['GOOGLE_MAPS_API_KEY']
+
 # Admin credentials
-ADMIN_CREDENTIALS = ('admin', 'pa$$word')
+ADMIN_CREDENTIALS = (environ['HCP_ADMIN'], environ['HCP_PASS'])
 
 # Database choice
 SQLALCHEMY_DATABASE_URI = 'sqlite:///app.db'

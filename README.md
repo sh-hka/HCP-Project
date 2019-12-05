@@ -76,14 +76,17 @@ I did what most people recommend for the application's structure. Basically, eve
 
 - Run the application.
 
-	`python manage.py runserver`
+	```shell script
+    env GOOGLE_MAPS_API_KEY=key HCP_ADMIN=admin_name HCP_PASS=admin_pass \
+    python manage.py runserver
+    ```
 
 - Navigate to `localhost:5000`.
 
-
+<!-- Currently Unsupported (figure out how to configure venv to autoload env)
 ### Virtual environment
 
-``
+```shell script
 pip install virtualenv
 virtualenv venv
 venv/bin/activate (venv\scripts\activate on Windows)
@@ -91,14 +94,15 @@ make install
 make dev
 python manage.py initdb
 python manage.py runserver
-``
+```
+-->
 
-
+<!-- Currently Unsupported (figure out how to pass env variables to docker @ runtime)
 ## Deployment
 
 The current application can be deployed with Docker [in a few commands](https://realpython.com/blog/python/dockerizing-flask-with-compose-and-machine-from-localhost-to-the-cloud/).
 
-```sh
+```shell script
 cd ~/path/to/application/
 docker-machine create -d virtualbox --virtualbox-memory 512 --virtualbox-cpu-count 1 dev
 docker-machine env dev
@@ -110,7 +114,7 @@ docker-compose run web python3 manage.py initdb
 ```
 
 Then access the IP address given by `docker-machine ip dev` et voilà. This is exactly how [OpenBikes's API is being deployed](https://github.com/OpenBikes/api.openbikes.co).
-
+-->
 
 ## Configuration
 
