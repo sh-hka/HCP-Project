@@ -1,3 +1,4 @@
+from base64 import b64encode
 from flask_api import status
 
 import app
@@ -55,21 +56,32 @@ def test_http_not_found2(client):
     assert response.status_code == status.HTTP_404_NOT_FOUND
 
 
-def test_admin_login_success(client):
-    """ Test logging in with correct admin credentials. """
-    """ NOTE: the '<website>:5000/admin' panel is part of flask-admin.
-        Server responds with WWW-Authenticate, replying with POST does not work... """
-    # First, check that access without credentials is HTTP Forbidden (401)
-    response = client.get('admin', follow_redirects=True)
+def test_admin_login_failure(client):
+    """ Test logging in with incorrect admin credentials. """
+    cred = b64encode('{cred[0]}1:{cred[1]}'.format(cred=app.config.ADMIN_CREDENTIALS).encode('utf-8')).decode('utf-8')
+    headers = {'Authorization': 'Basic ' + cred}
+    response = client.get('admin', headers=headers, follow_redirects=True)
+    assert response.status_code == status.HTTP_401_UNAUTHORIZED
+    cred = b64encode('{cred[0]}:{cred[1]}1'.format(cred=app.config.ADMIN_CREDENTIALS).encode('utf-8')).decode('utf-8')
+    headers = {'Authorization': 'Basic ' + cred}
+    response = client.get('admin', headers=headers, follow_redirects=True)
+    assert response.status_code == status.HTTP_401_UNAUTHORIZED
+    cred = b64encode('{cred[0]}1:{cred[1]}1'.format(cred=app.config.ADMIN_CREDENTIALS).encode('utf-8')).decode('utf-8')
+    headers = {'Authorization': 'Basic ' + cred}
+    response = client.get('admin', headers=headers, follow_redirects=True)
     assert response.status_code == status.HTTP_401_UNAUTHORIZED
 
-    # Don't know how to respond to a WWW-Authenticate, will work on
-    # Next, try logging in with the correct credentials
-    """
-    response = login(client, app.config.ADMIN_CREDENTIALS[0], app.config.ADMIN_CREDENTIALS[1])
-    print(response)
-    """
 
+def test_admin_login_success(client):
+    """ Test logging in with correct admin credentials. """
+    cred = b64encode('{cred[0]}:{cred[1]}'.format(cred=app.config.ADMIN_CREDENTIALS).encode('utf-8')).decode('utf-8')
+    headers = {'Authorization': 'Basic ' + cred}
+    response = client.get('admin', headers=headers, follow_redirects=True)
+    assert response.status_code == status.HTTP_200_OK
+
+
+if __name__ == '__main__':
+    pytest.main(['-v', '-W ignore::DeprecationWarning'])
 
 '''
 def test_app(app):
