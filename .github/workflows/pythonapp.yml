@@ -31,6 +31,7 @@ jobs:
         HCP_PASS: ${{ secrets.HCP_PASS }}
       run: |
         pip install pytest
+        pip install flask_api
         make dev
         python manage.py initdb
     - name: Run Test
