@@ -4,12 +4,12 @@
 {% macro nav_link(endpoint, text) %}
 	{% if request.endpoint is not none %}
 		{% if request.endpoint.endswith(endpoint) %}
-		    <a class="active teal item" href="{{ url_for(endpoint) }}">{{ text }}</a>
+			<a class="active teal item" href="{{ url_for(endpoint) }}">{{ text }}</a>
 		{% else %}
-		    <a class="item" href="{{ url_for(endpoint) }}">{{ text }}</a>
+			<a class="item" href="{{ url_for(endpoint) }}">{{ text }}</a>
 		{% endif %}
 	{% else %}
-    	<a class="item" href="{{ url_for(endpoint) }}">{{ text }}</a>
+		<a class="item" href="{{ url_for(endpoint) }}">{{ text }}</a>
 	{% endif %}
 {% endmacro %}
 
@@ -18,11 +18,60 @@
 	<div class="field">
 		{{ field(name_=field.name, id=field.name, placeholder=field.description, class_="field") }}
 	</div>
-  	{% if field.errors %}
-    	<ul>
-	    	{% for error in field.errors %}
-	      		<li class="form-error">{{ error }}</li>
-	    	{% endfor %}
-    	</ul>
-  	{% endif %}
+	{% if field.errors %}
+		<ul>
+			{% for error in field.errors %}
+				<li class="form-error">{{ error }}</li>
+			{% endfor %}
+		</ul>
+	{% endif %}
+{% endmacro %}
+
+{% macro map() %}
+
+	<script type="text/javascript" src="{{ url_for('static', filename='js/map/map-utils.js') }}"></script>
+
+	<div class="map" id="map"></div>
+
+	<script src="{{ url_for('static', filename='js/map/map-style.js') }}"></script>
+	<script src="{{ url_for('static', filename='js/map/map-init.js') }}"></script>
+
+	{#  Google Maps API  #}
+	<script
+		src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCsxsfZbJtPVehGHrovzrTexLcEXURkUag&callback=initMap&libraries=geometry">
+	</script>
+{% endmacro %}
+
+{% macro searchbar(form, isExpanded) %}
+	<div class="ui search search-bar {% if isExpanded %} raised {% else %} basic {% endif %} segment" id="search-bar">
+		<div class="ui big icon input">
+			{{ form.query(name_=form.query.name, id=form.query.name, placeholder=form.query.description, class_="prompt query") }}
+			<i id="search-icon" class="search icon" onclick="search()"></i>
+		</div>
+		{% if form.query.errors %}
+			<ul>
+				{% for error in form.query.errors %}
+					<li class="form-error">{{ error }}</li>
+				{% endfor %}
+			</ul>
+		{% endif %}
+
+		{% if isExpanded %}
+			{{ form.search_range(name_=form.search_range.name, id=form.search_range.name) }}
+			{% if form.search_range.errors %}
+				<ul>
+					{% for error in form.search_range.errors %}
+						<li class="form-error">{{ error }}</li>
+					{% endfor %}
+				</ul>
+				{% endif %}
+		{% endif %}
+	</div>
+
+	<script src="{{  url_for('static', filename='js/search.js') }}"></script>
+
+	<script type="text/javascript">
+		initSearchBar();
+	</script>
+
 {% endmacro %}

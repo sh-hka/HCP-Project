@@ -1,0 +1,22 @@
+
+#search-bar {
+    /* Center Align */
+    position: relative !important;
+    display: table;
+    top: 70vh;
+    margin: auto;
+    /* On top of the map */
+    z-index: 2;
+    /* Regulate for psychological biasing */
+    right: 1.5vw;
+}
+
+
+/* Map */
+.map {
+    position: absolute;
+    bottom: 0;
+    height: 100vh;
+    width: 100vw;
+    z-index: -1;
+}
