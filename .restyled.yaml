@@ -182,5 +182,6 @@ restylers:
   - name: black
       arguments: ["--skip-string-normalization"]
   - name: prettier
+  - name: prettier-markdown
   - name: autopep8
   - name: jdt
