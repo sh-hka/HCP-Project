@@ -1,3 +1,4 @@
+from base64 import b64encode
 from flask_api import status
 
 import app
@@ -5,18 +6,25 @@ import app.config
 import pytest
 
 
-def login(client, username, password, url='admin'):
-    """ Helper function to assist with logging in with a set of credentials. """
-    return client.post(
-        url, data=dict(username=username, password=password), follow_redirects=True
-    )
+@pytest.fixture
+def client():
+    """ Factory function to provide client parameter to tests. """
+    client = app.app.test_client()
+    return client
 
 
 @pytest.fixture
-def client():
-    """ Set-up function to be run before each test. """
-    client = app.app.test_client()
-    return client
+def admin_credentials():
+    """ Factory function to provide admin_credentials to tests. """
+    return app.config.ADMIN_CREDENTIALS
+
+
+def make_credential_headers(credentials=app.config.ADMIN_CREDENTIALS):
+    encoded_credentials = b64encode(
+        '{c[0]}:{c[1]}'.format(c=credentials).encode('utf-8')
+    ).decode('utf-8')
+    payload = {'Authorization': 'Basic ' + encoded_credentials}
+    return payload
 
 
 def test_http_ok_landing(client):
@@ -55,21 +63,38 @@ def test_http_not_found2(client):
     assert response.status_code == status.HTTP_404_NOT_FOUND
 
 
-def test_admin_login_success(client):
-    """ Test logging in with correct admin credentials. """
-    """ NOTE: the '<website>:5000/admin' panel is part of flask-admin.
-        Server responds with WWW-Authenticate, replying with POST does not work... """
-    # First, check that access without credentials is HTTP Forbidden (401)
-    response = client.get('admin', follow_redirects=True)
+def test_admin_login_failure(client, admin_credentials):
+    """ Test logging in with incorrect admin credentials. """
+    usr_name, password = admin_credentials
+
+    # Test with incorrect usr_name
+    credential_invalid_usr_name = (usr_name + '1', password)
+    headers = dict(make_credential_headers(credential_invalid_usr_name))
+    response = client.get('admin', headers=headers, follow_redirects=True)
     assert response.status_code == status.HTTP_401_UNAUTHORIZED
 
-    # Don't know how to respond to a WWW-Authenticate, will work on
-    # Next, try logging in with the correct credentials
-    """
-    response = login(client, app.config.ADMIN_CREDENTIALS[0], app.config.ADMIN_CREDENTIALS[1])
-    print(response)
-    """
+    # Test with incorrect password
+    credential_invalid_password = (usr_name, password + '1')
+    headers = dict(make_credential_headers(credential_invalid_password))
+    response = client.get('admin', headers=headers, follow_redirects=True)
+    assert response.status_code == status.HTTP_401_UNAUTHORIZED
 
+    # Test with incorrect usr_name and password
+    credential_invalid = (usr_name + '1', password + '1')
+    headers = dict(make_credential_headers(credential_invalid))
+    response = client.get('admin', headers=headers, follow_redirects=True)
+    assert response.status_code == status.HTTP_401_UNAUTHORIZED
+
+
+def test_admin_login_success(client, admin_credentials):
+    """ Test logging in with correct admin credentials. """
+    headers = dict(make_credential_headers(admin_credentials))
+    response = client.get('admin', headers=headers, follow_redirects=True)
+    assert response.status_code == status.HTTP_200_OK
+
+
+if __name__ == '__main__':
+    pytest.main(['-v', '-W ignore::DeprecationWarning'])
 
 '''
 def test_app(app):
