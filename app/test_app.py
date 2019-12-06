@@ -6,18 +6,23 @@ import app.config
 import pytest
 
 
-def login(client, username, password, url='admin'):
-    """ Helper function to assist with logging in with a set of credentials. """
-    return client.post(
-        url, data=dict(username=username, password=password), follow_redirects=True
-    )
+@pytest.fixture
+def client():
+    """ Factory function to provide client parameter to tests. """
+    client = app.app.test_client()
+    return client
 
 
 @pytest.fixture
-def client():
-    """ Set-up function to be run before each test. """
-    client = app.app.test_client()
-    return client
+def admin_credentials():
+    """ Factory function to provide admin_credentials to tests. """
+    return app.config.ADMIN_CREDENTIALS
+
+
+def make_credential_headers(credentials=app.config.ADMIN_CREDENTIALS):
+    encoded_credentials = b64encode('{c[0]}:{c[1]}'.format(c=credentials).encode('utf-8')).decode('utf-8')
+    payload = {'Authorization': 'Basic ' + encoded_credentials}
+    return payload
 
 
 def test_http_ok_landing(client):
@@ -56,26 +61,32 @@ def test_http_not_found2(client):
     assert response.status_code == status.HTTP_404_NOT_FOUND
 
 
-def test_admin_login_failure(client):
+def test_admin_login_failure(client, admin_credentials):
     """ Test logging in with incorrect admin credentials. """
-    cred = b64encode('{cred[0]}1:{cred[1]}'.format(cred=app.config.ADMIN_CREDENTIALS).encode('utf-8')).decode('utf-8')
-    headers = {'Authorization': 'Basic ' + cred}
+    usr_name, password = admin_credentials
+
+    # Test with incorrect usr_name
+    credential_invalid_usr_name = (usr_name + '1', password)
+    headers = dict(make_credential_headers(credential_invalid_usr_name))
     response = client.get('admin', headers=headers, follow_redirects=True)
     assert response.status_code == status.HTTP_401_UNAUTHORIZED
-    cred = b64encode('{cred[0]}:{cred[1]}1'.format(cred=app.config.ADMIN_CREDENTIALS).encode('utf-8')).decode('utf-8')
-    headers = {'Authorization': 'Basic ' + cred}
+
+    # Test with incorrect password
+    credential_invalid_password = (usr_name, password + '1')
+    headers = dict(make_credential_headers(credential_invalid_password))
     response = client.get('admin', headers=headers, follow_redirects=True)
     assert response.status_code == status.HTTP_401_UNAUTHORIZED
-    cred = b64encode('{cred[0]}1:{cred[1]}1'.format(cred=app.config.ADMIN_CREDENTIALS).encode('utf-8')).decode('utf-8')
-    headers = {'Authorization': 'Basic ' + cred}
+
+    # Test with incorrect usr_name and password
+    credential_invalid = (usr_name + '1', password + '1')
+    headers = dict(make_credential_headers(credential_invalid))
     response = client.get('admin', headers=headers, follow_redirects=True)
     assert response.status_code == status.HTTP_401_UNAUTHORIZED
 
 
-def test_admin_login_success(client):
+def test_admin_login_success(client, admin_credentials):
     """ Test logging in with correct admin credentials. """
-    cred = b64encode('{cred[0]}:{cred[1]}'.format(cred=app.config.ADMIN_CREDENTIALS).encode('utf-8')).decode('utf-8')
-    headers = {'Authorization': 'Basic ' + cred}
+    headers = dict(make_credential_headers(admin_credentials))
     response = client.get('admin', headers=headers, follow_redirects=True)
     assert response.status_code == status.HTTP_200_OK
 
