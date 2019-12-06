@@ -179,8 +179,8 @@ restylers_version: "20191031"
 #
 
 restylers:
-    - name: black
-        arguments: ["--skip-string-normalization"]
-    - name: prettier
-    - name: autopep8
-    - name: jdt
+  - name: black
+      arguments: ["--skip-string-normalization"]
+  - name: prettier
+  - name: autopep8
+  - name: jdt
