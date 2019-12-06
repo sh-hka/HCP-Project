@@ -20,7 +20,9 @@ def admin_credentials():
 
 
 def make_credential_headers(credentials=app.config.ADMIN_CREDENTIALS):
-    encoded_credentials = b64encode('{c[0]}:{c[1]}'.format(c=credentials).encode('utf-8')).decode('utf-8')
+    encoded_credentials = b64encode(
+        '{c[0]}:{c[1]}'.format(c=credentials).encode('utf-8')
+    ).decode('utf-8')
     payload = {'Authorization': 'Basic ' + encoded_credentials}
     return payload
 
