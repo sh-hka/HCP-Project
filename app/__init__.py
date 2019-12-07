@@ -30,6 +30,10 @@ bcrypt = Bcrypt(app)
 from app.views import main, user, error
 app.register_blueprint(user.userbp)
 
+from app.views.search import searchbp
+for bp in [searchbp]:
+    app.register_blueprint(bp)
+
 # Setup the user login process
 from flask_login import LoginManager
 from app.models import User
