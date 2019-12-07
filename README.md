@@ -2,6 +2,16 @@
 
 ![License](http://img.shields.io/:license-mit-blue.svg)
 
+Add one line description
+
+Add Screechots
+<p align="center">
+	<img alt="Homepage" src="" />
+	<img alt="Search Results" src="" />
+	<img alt="Application Process" src="" />
+	<img alt="Admin Dashboard" src="" />
+</p>
+
 Add description
 
 ## Features
@@ -127,11 +137,6 @@ The goal is to keep most of the application's configuration in a single file cal
 I have included a working Gmail account to confirm user email addresses and reset user passwords, although in production you should't include the file if you push to GitHub because people can see it. The same goes for API keys, you should keep them secret. You can read more about secret configuration files [here](https://exploreflask.com/configuration.html).
 
 Read [this](http://flask.pocoo.org/docs/0.10/config/) for information on the possible configuration options.
-
-
-## Examples
-
-- [Screenshots](screenshots/)
 
 
 ## Project based on:
