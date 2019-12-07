@@ -188,4 +188,3 @@ restylers:
   - name: autopep8
     command: [autopep8, "-i", "--ignore", "E402"]
   - yapf
-  - jdt
