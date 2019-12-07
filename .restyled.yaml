@@ -185,6 +185,7 @@ restylers:
   - prettier
   - prettier-markdown
   - prettier-yaml
-  - autopep8
+  - name: autopep8
+    command: [autopep8, "-i", "--ignore", "E402"]
   - yapf
   - jdt
