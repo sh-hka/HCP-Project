@@ -184,5 +184,7 @@ restylers:
       - "--skip-string-normalization"
   - prettier
   - prettier-markdown
+  - prettier-yaml
   - autopep8
+  - yapf
   - jdt
