@@ -44,6 +44,7 @@ for bp in [searchbp, applybp]:
 # Setup the user login process
 from flask_login import LoginManager
 from app.models import User
+from app.views.application import Application
 
 login_manager = LoginManager()
 login_manager.init_app(app)
