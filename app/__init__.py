@@ -31,7 +31,8 @@ from app.views import main, user, error
 app.register_blueprint(user.userbp)
 
 from app.views.search import searchbp
-for bp in [searchbp]:
+from app.views.application import applybp
+for bp in [searchbp, applybp]:
     app.register_blueprint(bp)
 
 # Setup the user login process
