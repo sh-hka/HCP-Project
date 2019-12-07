@@ -179,14 +179,10 @@ restylers_version: "20191031"
 #
 
 restylers:
-  - enable: true
-    name: black
-    arguments: ["--skip-string-normalization"]
-  - enable: true
-    name: prettier
-  - enable: true
-    name: prettier-markdown
-  - enable: true
-    name: autopep8
-  - enable: true
-    name: jdt
+  - name: black
+    arguments:
+      - "--skip-string-normalization"
+  - prettier
+  - prettier-markdown
+  - autopep8
+  - jdt
