@@ -33,10 +33,10 @@ class AddressValidator(object):
 
 
 HOUSING_TYPES = [('Other', 'Other'), ('Rent', 'Rent'), ('Own', 'Own')]
-PHONE_TYPES = [('Work', 'Work'), ('Home', 'Home'), ('Cell', 'Cell')]
+PHONE_TYPES = [('Work', 'Work'), ('Home', 'Home'), ('Cell', 'Cell'), ('Other', 'Other')]
 
 
-class Application(Form):
+class ApplicationForm(Form):
     """ A visitor wants to apply to a provider """
 
     first_name = StringField(validators=[DataRequired(),
@@ -45,7 +45,7 @@ class Application(Form):
     last_name = StringField(validators=[DataRequired(),
                                         Length(min=2)],
                             description="Last name")
-    initial_purchase_amt = FloatField(
+    initial_purchase_amt = IntegerField(
         validators=[Optional(), NumberRange(min=0)],
         description="Initial purchase amount",
     )
@@ -87,5 +87,5 @@ class Application(Form):
     accept = BooleanField(
         validators=[InputRequired()],
         description=
-        "Do you agree to our lack of privacy policy and terms of service?",
+        "Do you agree to our lack of privacy policy, and terms of service?",
     )

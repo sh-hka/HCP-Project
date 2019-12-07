@@ -1,4 +1,4 @@
-from app.views.application import Application
+from app.views.application import ApplicationForm
 
 from flask import Blueprint, render_template, redirect, url_for, flash
 
@@ -8,7 +8,7 @@ applybp = Blueprint("applybp", __name__)
 
 @applybp.route('/apply', methods=["GET", "POST"])
 def apply_now():
-    form = Application()
+    form = ApplicationForm()
     if form.validate_on_submit():
         # TODO: Save the form to db
         flash('Your application has been submitted successfully.')
