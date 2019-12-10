@@ -8,10 +8,19 @@ app.config.from_object("app.config")
 # Setup the logger
 from app.logger_setup import logger
 
+# Setup the password crypting
+from flask_bcrypt import Bcrypt
+
+bcrypt = Bcrypt(app)
+
 # Setup the database
 from flask_sqlalchemy import SQLAlchemy
 
 db = SQLAlchemy(app)
+
+from app.models import User
+from app.views.provider import Provider
+from app.views.application import Application
 
 # Setup the mail server
 from flask_mail import Mail
@@ -24,11 +33,6 @@ from flask_debugtoolbar import DebugToolbarExtension
 app.config['DEBUG_TB_TEMPLATE_EDITOR_ENABLED'] = True
 app.config['DEBUG_TB_PROFILER_ENABLED'] = True
 toolbar = DebugToolbarExtension(app)
-
-# Setup the password crypting
-from flask_bcrypt import Bcrypt
-
-bcrypt = Bcrypt(app)
 
 # Import the views
 from app.views import main, user, error
@@ -43,8 +47,6 @@ for bp in [searchbp, applybp]:
 
 # Setup the user login process
 from flask_login import LoginManager
-from app.models import User
-from app.views.application import Application
 
 login_manager = LoginManager()
 login_manager.init_app(app)
