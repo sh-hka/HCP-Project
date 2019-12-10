@@ -5,7 +5,8 @@ class Application(db.Model):
 
     __tablename__ = 'applications'
 
-    id = db.Column(db.Integer, primary_key=True)
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True, nullable=False)
+    provider = db.Column(db.Integer, db.ForeignKey('Provider.id'), nullable=False)
     first_name = db.Column(db.String, nullable=False)
     last_name = db.Column(db.String, nullable=False)
     initial_purchase = db.Column(db.Integer, nullable=True)

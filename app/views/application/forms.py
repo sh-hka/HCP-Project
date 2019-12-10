@@ -2,7 +2,7 @@ from flask_wtf import FlaskForm as Form
 from wtforms import (
     StringField,
     IntegerField,
-    FloatField,
+    HiddenField,
     DateField,
     SelectField,
     BooleanField,
@@ -16,7 +16,7 @@ from wtforms.validators import (
     Email,
     EqualTo,
     InputRequired,
-)
+    ValidationError)
 
 
 class AddressValidator(object):
@@ -32,6 +32,21 @@ class AddressValidator(object):
         return
 
 
+class Existence(object):
+    def __init__(self, model, field, cast=str, message=None):
+        if not message:
+            message = u"The {field.description} value {field.data} is invalid"
+        self.model = model
+        self.field = field
+        self.cast = cast
+        self.message = message
+
+    def __call__(self, form, field):
+        check = self.model.query.filter(self.field == self.cast(field.data)).first()
+        if not check:
+            raise ValidationError(self.message.format(field=field))
+
+
 HOUSING_TYPES = [('Other', 'Other'), ('Rent', 'Rent'), ('Own', 'Own')]
 PHONE_TYPES = [('Work', 'Work'), ('Home', 'Home'), ('Cell', 'Cell'), ('Other', 'Other')]
 
@@ -39,6 +54,9 @@ PHONE_TYPES = [('Work', 'Work'), ('Home', 'Home'), ('Cell', 'Cell'), ('Other', '
 class ApplicationForm(Form):
     """ A visitor wants to apply to a provider """
 
+    provider = HiddenField(validators=[DataRequired(),
+                                       ],
+                           description="Provider UID")
     first_name = StringField(validators=[DataRequired(),
                                          Length(min=2)],
                              description="First name")
