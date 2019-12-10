@@ -19,8 +19,8 @@ from flask_sqlalchemy import SQLAlchemy
 db = SQLAlchemy(app)
 
 from app.models import User
-from app.views.provider import Provider
-from app.views.application import Application
+from app.provider import Provider
+from app.application import Application
 
 # Setup the mail server
 from flask_mail import Mail
@@ -40,7 +40,7 @@ from app.views import main, user, error
 app.register_blueprint(user.userbp)
 
 from app.views.search import searchbp
-from app.views.application import applybp
+from app.application import applybp
 
 for bp in [searchbp, applybp]:
     app.register_blueprint(bp)

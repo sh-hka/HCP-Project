@@ -1,4 +1,4 @@
-from app.views.application import ApplicationForm
+from app.application import ApplicationForm
 
 from flask import Blueprint, render_template, redirect, url_for, flash
 
