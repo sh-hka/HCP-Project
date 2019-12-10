@@ -5,7 +5,10 @@ class Provider(db.Model):
 
     __tablename__ = 'providers'
 
-    id = db.Column(db.Integer, nullable=False, autoincrement=True, primary_key=True)
+    id = db.Column(db.Integer,
+                   nullable=False,
+                   autoincrement=True,
+                   primary_key=True)
     name = db.Column(db.String, nullable=False, unique=True)
     speciality = db.Column(db.String)
     address = db.Column(db.String, nullable=False)
@@ -20,4 +23,5 @@ class Provider(db.Model):
         db.CheckConstraint(lat <= 90, name="Latitude upper range check"),
         db.CheckConstraint(-180 <= lng, name="Longitude lower range check"),
         db.CheckConstraint(lng <= 180, name="Longitude upper range check"),
-        {})
+        {},
+    )

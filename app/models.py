@@ -35,8 +35,8 @@ class User(db.Model, UserMixin):
     def check_password(self, plaintext):
         return bcrypt.check_password_hash(self.password, plaintext)
 
-    password = db.synonym('_password', descriptor=property(_get_password,_set_password))
+    password = db.synonym('_password',
+                          descriptor=property(_get_password, _set_password))
 
     def get_id(self):
         return self.email
-

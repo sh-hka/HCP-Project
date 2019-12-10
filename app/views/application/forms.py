@@ -16,7 +16,8 @@ from wtforms.validators import (
     Email,
     EqualTo,
     InputRequired,
-    ValidationError)
+    ValidationError,
+)
 
 
 class AddressValidator(object):
@@ -42,20 +43,21 @@ class Existence(object):
         self.message = message
 
     def __call__(self, form, field):
-        check = self.model.query.filter(self.field == self.cast(field.data)).first()
+        check = self.model.query.filter(
+            self.field == self.cast(field.data)).first()
         if not check:
             raise ValidationError(self.message.format(field=field))
 
 
 HOUSING_TYPES = [('Other', 'Other'), ('Rent', 'Rent'), ('Own', 'Own')]
-PHONE_TYPES = [('Work', 'Work'), ('Home', 'Home'), ('Cell', 'Cell'), ('Other', 'Other')]
+PHONE_TYPES = [('Work', 'Work'), ('Home', 'Home'), ('Cell', 'Cell'),
+               ('Other', 'Other')]
 
 
 class ApplicationForm(Form):
     """ A visitor wants to apply to a provider """
 
-    provider = HiddenField(validators=[DataRequired(),
-                                       ],
+    provider = HiddenField(validators=[DataRequired()],
                            description="Provider UID")
     first_name = StringField(validators=[DataRequired(),
                                          Length(min=2)],
