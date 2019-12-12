@@ -14,8 +14,8 @@
 {% endmacro %}
 
 <!-- Render a WTForm form's field (with it's possible associated errors) from a WTForms form -->
-{% macro render_field(field) %}
-	<div class="field">
+{% macro render_field(field, width='') %}
+	<div class="{% if width != '' %}{{ width + ' wide '}}{% endif %}field">
 		{{ field(name_=field.name, id=field.name, placeholder=field.description, class_="field") }}
 	</div>
 	{% if field.errors %}
