@@ -57,7 +57,7 @@ PHONE_TYPES = [('Work', 'Work'), ('Home', 'Home'), ('Cell', 'Cell'),
 class ApplicationForm(Form):
     """ A visitor wants to apply to a provider """
 
-    provider = HiddenField(validators=[DataRequired()],
+    provider = HiddenField(validators=[DataRequired(message="Missing Provider ID.")],
                            description="Provider UID")
     first_name = StringField(validators=[DataRequired(),
                                          Length(min=2)],
@@ -99,7 +99,7 @@ class ApplicationForm(Form):
         ],
         description="SSN",
     )
-    dob = DateField(validators=[DataRequired()], description="Date of birth")
+    dob = DateField(validators=[DataRequired(message="Make sure the date is in YYYY-MM-DD format.")], description="Date of birth")
     income = IntegerField(
         validators=[DataRequired(), NumberRange(min=0)],
         description="Monthly Net income",
@@ -107,5 +107,5 @@ class ApplicationForm(Form):
     accept = BooleanField(
         validators=[InputRequired()],
         description=
-        "Do you agree to our lack of privacy policy, and terms of service?",
+        "I agree to the lack of privacy policy, and terms of service.",
     )
