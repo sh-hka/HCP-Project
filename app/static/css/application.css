@@ -1,0 +1,17 @@
+.application {
+    min-width: 700px;
+    width: 60vw !important;
+}
+
+.ui.form .fields .field {
+    padding: 1em !important;
+}
+
+.ui.form .inline.fields .field {
+    padding: inherit;
+    margin: 0;
+}
+
+.ui.form .inline.fields .field>input {
+    width: 100% !important;
+}
