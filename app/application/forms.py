@@ -57,7 +57,7 @@ PHONE_TYPES = [('Work', 'Work'), ('Home', 'Home'), ('Cell', 'Cell'),
 class ApplicationForm(Form):
     """ A visitor wants to apply to a provider """
 
-    provider = HiddenField(validators=[DataRequired(message="Missing Provider ID."), Regexp(r'^\d+$')],
+    provider = HiddenField(validators=[DataRequired(message="Missing Provider ID."), Regexp(r'^\d+$', message="The provider ID must be a positive integer.")],
                            description="Provider UID")
     first_name = StringField(validators=[DataRequired(),
                                          Length(min=2)],
