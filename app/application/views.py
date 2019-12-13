@@ -1,4 +1,4 @@
-from app.application import ApplicationForm
+from app.application import ApplicationForm, Application
 
 from flask import Blueprint, render_template, redirect, url_for, flash
 
@@ -13,4 +13,8 @@ def apply_now():
         # TODO: Save the form to db
         flash('Your application has been submitted successfully.')
         return redirect(url_for('index'))
-    return render_template('apply.html', form=form, title="Apply Now")
+    # Default invalid provider ID (will get caught in form validation)
+    provider = -1
+    if 'provider' in request.args:
+        provider = int(request.args['provider'])
+    return render_template('apply.html', form=form, provider=provider, title="Apply Now")
