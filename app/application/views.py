@@ -17,15 +17,15 @@ def apply_now():
             provider=int(form.provider.data),
             first_name=form.first_name.data,
             last_name=form.last_name.data,
-            initial_purchase=form.initial_purchase_amt.data,
-            income=form.income.data,
+            dob=form.dob.data,
             address=form.address.data,
             housing_type=form.housing_type.data,
+            email=form.email.data,
             phone=form.phone.data,
             phone_type=form.phone_type.data,
-            email=form.email.data,
             ssn=form.ssn.data,
-            dob=form.dob.data,
+            income=form.income.data,
+            initial_purchase=form.initial_purchase_amt.data,
         )
         db.session.add(application)
         db.session.commit()
