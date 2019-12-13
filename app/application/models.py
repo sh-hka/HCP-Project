@@ -5,13 +5,10 @@ class Application(db.Model):
 
     __tablename__ = 'applications'
 
-    id = db.Column(db.Integer,
-                   primary_key=True,
-                   autoincrement=True,
-                   nullable=False)
-    provider = db.Column(db.Integer,
-                         db.ForeignKey('providers.id'),
-                         nullable=False)
+    id = db.Column(db.Integer, primary_key=True,
+                   autoincrement=True, nullable=False)
+    provider = db.Column(db.Integer, db.ForeignKey(
+        'providers.id'), nullable=False)
     first_name = db.Column(db.String, nullable=False)
     last_name = db.Column(db.String, nullable=False)
     dob = db.Column(db.Date, nullable=False)

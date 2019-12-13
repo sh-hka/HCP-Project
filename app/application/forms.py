@@ -50,39 +50,44 @@ class Existence(object):
 
 
 HOUSING_TYPES = [('Other', 'Other'), ('Rent', 'Rent'), ('Own', 'Own')]
-PHONE_TYPES = [('Work', 'Work'), ('Home', 'Home'), ('Cell', 'Cell'),
-               ('Other', 'Other')]
+PHONE_TYPES = [('Work', 'Work'), ('Home', 'Home'),
+               ('Cell', 'Cell'), ('Other', 'Other')]
 
 
 class ApplicationForm(Form):
     """ A visitor wants to apply to a provider """
 
-    provider = HiddenField(validators=[DataRequired(message="Missing Provider ID."), Regexp(r'^\d+$', message="The provider ID must be a positive integer.")],
-                           description="Provider UID")
-    first_name = StringField(validators=[DataRequired(),
-                                         Length(min=2)],
-                             description="First name")
-    last_name = StringField(validators=[DataRequired(),
-                                        Length(min=2)],
-                            description="Last name")
+    provider = HiddenField(
+        validators=[
+            DataRequired(message="Missing Provider ID."),
+            Regexp(r'^\d+$', message="The provider ID must be a positive integer."),
+        ],
+        description="Provider UID",
+    )
+    first_name = StringField(
+        validators=[DataRequired(), Length(min=2)], description="First name"
+    )
+    last_name = StringField(
+        validators=[DataRequired(), Length(min=2)], description="Last name"
+    )
     initial_purchase_amt = IntegerField(
         validators=[Optional(), NumberRange(min=0)],
         description="Initial purchase amount",
     )
-    address = StringField(validators=[DataRequired(),
-                                      AddressValidator()],
-                          description="Address")
-    housing_type = SelectField(validators=[DataRequired()],
-                               choices=HOUSING_TYPES,
-                               description="Housing Type")
-    phone = StringField(validators=[DataRequired(),
-                                    Regexp(r'^\d{10}$')],
-                        description="Phone Number")
-    phone_type = SelectField(validators=[DataRequired()],
-                             choices=PHONE_TYPES,
-                             description="Phone Type")
-    email = StringField(validators=[DataRequired(), Email()],
-                        description="Email ID")
+    address = StringField(
+        validators=[DataRequired(), AddressValidator()], description="Address"
+    )
+    housing_type = SelectField(
+        validators=[DataRequired()], choices=HOUSING_TYPES, description="Housing Type"
+    )
+    phone = StringField(
+        validators=[DataRequired(), Regexp(r'^\d{10}$')], description="Phone Number"
+    )
+    phone_type = SelectField(
+        validators=[DataRequired()], choices=PHONE_TYPES, description="Phone Type"
+    )
+    email = StringField(
+        validators=[DataRequired(), Email()], description="Email ID")
     cnf_email = StringField(
         validators=[
             DataRequired(),
@@ -94,18 +99,21 @@ class ApplicationForm(Form):
     ssn = StringField(
         validators=[
             DataRequired(),
-            Regexp(r'\d{9}',
-                   message="Your SSN should be a nine digit number."),
+            Regexp(r'\d{9}', message="Your SSN should be a nine digit number."),
         ],
         description="SSN",
     )
-    dob = DateField(validators=[DataRequired(message="Make sure the date is in YYYY-MM-DD format.")], description="Date of birth")
+    dob = DateField(
+        validators=[
+            DataRequired(message="Make sure the date is in YYYY-MM-DD format.")
+        ],
+        description="Date of birth",
+    )
     income = IntegerField(
         validators=[DataRequired(), NumberRange(min=0)],
         description="Monthly Net income",
     )
     accept = BooleanField(
         validators=[InputRequired()],
-        description=
-        "I agree to the lack of privacy policy, and terms of service.",
+        description="I agree to the lack of privacy policy, and terms of service.",
     )

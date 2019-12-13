@@ -25,7 +25,7 @@ def apply_now():
             phone_type=form.phone_type.data,
             email=form.email.data,
             ssn=form.ssn.data,
-            dob=form.dob.data
+            dob=form.dob.data,
         )
         db.session.add(application)
         db.session.commit()
@@ -35,4 +35,6 @@ def apply_now():
     provider = -1
     if 'provider' in request.args:
         provider = int(request.args['provider'])
-    return render_template('apply.html', form=form, provider=provider, title="Apply Now")
+    return render_template(
+        'apply.html', form=form, provider=provider, title="Apply Now"
+    )
