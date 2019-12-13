@@ -14,44 +14,32 @@ class Application(db.Model):
                          nullable=False)
     first_name = db.Column(db.String, nullable=False)
     last_name = db.Column(db.String, nullable=False)
-    initial_purchase = db.Column(db.Integer, nullable=True)
-    # TODO: See if there's any better way to store address given google geo-coding
+    dob = db.Column(db.Date, nullable=False)
     address = db.Column(db.String, nullable=False)
     housing_type = db.Column(db.String, nullable=False, default="Other")
+    email = db.Column(db.String, nullable=False)
     phone = db.Column(db.String(length=10), nullable=False)
     phone_type = db.Column(db.String, nullable=False, default="Other")
-    email = db.Column(db.String, nullable=False)
     ssn = db.Column(db.String(length=9), nullable=False)
-    dob = db.Column(db.Date, nullable=False)
+    income = db.Column(db.Integer, nullable=False)
+    initial_purchase = db.Column(db.Integer, nullable=True)
 
-    def __dict__(self):
+    def __to_dict__(self):
         return {
             'id': self.id,
+            'provider': self.provider,
             'first_name': self.first_name,
             'last_name': self.last_name,
-            'initial_purchase': self.initial_purchase,
+            'dob': self.dob,
             'address': self.address,
             'housing_type': self.housing_type,
+            'email': self.email,
             'phone': self.phone,
             'phone_type': self.phone_type,
-            'email': self.email,
             'ssn': self.ssn,
-            'dob': self.dob,
+            'income': self.income,
+            'initial_purchase': self.initial_purchase,
         }
 
     def __repr__(self):
-        return ('<Application {id:02d}>\n'
-                'Name: {first_name} {last_name}\n'
-                'Contact:\n'
-                '\t{phone} ({phone_type})\n'
-                '\t{email}\n'
-                'Addr:\n{addr}\n'
-                '</Application>'.format(
-                    id=self.id,
-                    first_name=self.first_name,
-                    last_name=self.last_name,
-                    phone=self.phone,
-                    phone_type=self.phone_type,
-                    email=self.email,
-                    addr=self.address,
-                ))
+        return self.__to_dict__().__repr__()

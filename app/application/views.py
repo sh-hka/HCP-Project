@@ -18,6 +18,7 @@ def apply_now():
             first_name=form.first_name.data,
             last_name=form.last_name.data,
             initial_purchase=form.initial_purchase_amt.data,
+            income=form.income.data,
             address=form.address.data,
             housing_type=form.housing_type.data,
             phone=form.phone.data,
