@@ -42,5 +42,4 @@ from app.application import applybp
 for bp in [searchbp, applybp]:
     app.register_blueprint(bp)
 
-
 from app import admin
