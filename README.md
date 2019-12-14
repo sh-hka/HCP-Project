@@ -82,11 +82,17 @@ I did what most people recommend for the application's structure. Basically, eve
 
 - Install the requirements and setup the development environment.
 
-	`make install && make dev`
+	```shell script
+	make install 
+	make dev
+	```
 
 - Create the database.
 
-	`python manage.py initdb`
+	```shell script
+	env GOOGLE_MAPS_API_KEY=key HCP_ADMIN=admin_name HCP_PASS=admin_pass \
+	python manage.py initdb
+	```
 
 - Run the application.
 
