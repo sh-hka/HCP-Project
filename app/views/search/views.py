@@ -6,7 +6,7 @@ searchbp = Blueprint("searchbp", __name__)
 
 @searchbp.route('/search', methods=["GET"])
 def search():
-    return render_template('layout.html', title='Results')
+    return render_template('layout.html', title='Search')
 
 
 @searchbp.route('/search', methods=['POST'])
