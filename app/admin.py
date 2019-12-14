@@ -30,8 +30,12 @@ class ModelView(ModelView):
         return True
 
 
+class ApplicationView(ModelView):
+    can_export = True
+
+
 # Applications
-admin.add_view(ModelView(Application, db.session))
+admin.add_view(ApplicationView(Application, db.session))
 
 # Providers
 admin.add_view(ModelView(Provider, db.session))
