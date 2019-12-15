@@ -1,9 +1,82 @@
 {% extends "layout.html" %}
+{% import "macros.html" as m %}
 
 {% block head %}
-	{{ super() }}
+    {{ super() }}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/application.css') }}">
 {% endblock %}
 
 {% block content %}
-
+    <div class="ui form-user center raised very padded text container segment application">
+        <form class="ui form success" action="/apply" method="post">
+            <h4 class="ui dividing header">Apply Now</h4>
+            {{ m.render_field(form.provider, value=provider) }}
+            <h5 class="ui dividing header">Personal Info</h5>
+            <div class="field">
+                <div class="inline fields">
+                    <label>Name</label>
+                    {{ m.render_field(form.first_name) }}
+                    {{ m.render_field(form.last_name) }}
+                </div>
+                <div class="inline fields">
+                    <label>DOB</label>
+                    {{ m.render_field(form.dob) }}
+                </div>
+                <div class="inline fields">
+                    <label>Address</label>
+                    {{ m.render_field(form.address, width='ten') }}
+                    {{ m.render_field(form.housing_type, width='four') }}
+                </div>
+                <div class="field">
+                    <label>Contact</label>
+                    <div class="inline fields">
+                        <label>Email</label>
+                        {{ m.render_field(form.email, width='six') }}
+                        <label>Confirm Email</label>
+                        {{ m.render_field(form.cnf_email, width='six') }}
+                    </div>
+                    <div class="inline fields">
+                        <label>Phone</label>
+                        {{ m.render_field(form.phone) }}
+                        {{ m.render_field(form.phone_type, width='four') }}
+                    </div>
+                </div>
+            </div>
+            <h5 class="ui dividing header">Financial Info</h5>
+            <div class="field">
+                <div class="inline fields">
+                    <label>SSN</label>
+                    {{ m.render_field(form.ssn) }}
+                    <label>Income</label>
+                    {{ m.render_field(form.income) }}
+                </div>
+                <div class="inline fields">
+                    <label>Initial Credit</label>
+                    {{ m.render_field(form.initial_purchase_amt) }}
+                </div>
+            </div>
+            <div class="inline field">
+                <div class="ui checkbox">
+                    {{ form.accept(name_=form.accept.name, id=form.accept.name, placeholder=form.accept.description, class_="hidden") }}
+                    <label for="{{ form.accept.name }}">{{ form.accept.description }}</label>
+                </div>
+                {% if form.accept.errors %}
+                    <ul>
+                        {% for error in form.accept.errors %}
+                            <li class="form-error">{{ error }}</li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+            </div>
+            {{ form.csrf_token }}
+            <div class="ui success message hidden">
+                <div class="header">Application Submitted</div>
+                <p>
+                    Your application has been submitted for review.
+                    We'll contact you via email once your application is reviewed.
+                </p>
+            </div>
+            <button class="ui primary button" type="submit">Apply</button>
+        </form>
+    </div>
 {% endblock %}
