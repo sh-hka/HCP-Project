@@ -1,0 +1,17 @@
+.application {
+    min-width: 516px;
+    width: 60vw !important;
+}
+
+.box{
+  width: 400px;
+  height: 300px;
+  background: darkgray;
+}
+
+.left-box,.right-box{
+  width: 50%;
+  height: 100%;
+  float: left;
+}
+
