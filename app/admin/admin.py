@@ -3,6 +3,7 @@ import os.path as op
 from flask import request, redirect, Response, flash, url_for
 from werkzeug.exceptions import HTTPException
 from flask_admin import Admin
+from flask_admin.base import expose
 from flask_admin.contrib.sqla import ModelView
 from flask_admin.contrib.fileadmin import FileAdmin
 
@@ -38,6 +39,7 @@ class ApplicationView(ModelView):
 class ProviderView(ModelView):
     can_export = True
 
+    @expose('/import/', methods=['POST'])
     def import_file(self):
         form = ProviderImportForm()
         if form.validate_on_submit():
