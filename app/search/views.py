@@ -11,4 +11,4 @@ def search():
 
 @searchbp.route('/search', methods=['POST'])
 def results():
-    return jsonify({})
+    return jsonify([{}])
