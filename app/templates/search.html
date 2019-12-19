@@ -1,0 +1,43 @@
+{% extends "layout.html" %}
+{% import "macros.html" as m %}
+
+{% block head %}
+    {{ super() }}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/search.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/application.css') }}">
+    <script src="{{ url_for('static', filename='js/search.js') }}"></script>
+{% endblock %}
+
+{% block content %}
+<div class="left"></div>
+<div class="center">
+    <div class="box">
+       <div class="left-box">
+            <table class="table table-striped sortable">
+              <thead>
+              <tr id = "Details">
+                  <th><font size="3">Name</font></th>
+                  <th><font size="3">Address</font></th>
+                  <th><font size="3">Contact</font></th>
+                  <th><font size="3">Apply</font></th>
+              </tr>
+              </thead>
+            </table>
+
+        </div>
+        <div class="right-box">
+            <div class="map" id="map"></div>
+
+            <script src="{{ url_for('static', filename='js/map/map-style.js') }}"></script>
+            <script src="{{ url_for('static', filename='js/map/map-init.js') }}"></script>
+
+            {#  Google Maps API  #}
+            <script
+                src="https://maps.googleapis.com/maps/api/js?key={{ GOOGLE_MAPS_API_KEY }}&callback=initMap&libraries=geometry">
+            </script>
+    <!--        <div id="map"></div>-->
+        </div>
+    </div>
+</div>
+<div class="right"></div>
+{% endblock %}
