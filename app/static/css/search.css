@@ -1,54 +1,17 @@
-.application {
-    min-width: 516px;
-    width: 60vw !important;
+.two-grid {
+    display: grid;
+    grid-template-columns: 2fr 3fr;
+    grid-gap: 1em;
+    padding-left: 1em;
 }
 
-.box{
-  width: 400px;
-  height: 300px;
-  background: darkgray;
-}
-
-.left-box{
-  float: left;
-  width: 300px;
-  height: 300px;
-}
-
-.right-box{
-	margin-left: 310px;
-    height: 300px;
-}
-
-.table {
-  border-collapse: collapse;
+.map {
+    position: relative;
+    width: auto;
+    grid-column: 2;
 
 }
 
-.table .td {
-  border: 1px solid black;
-}
-
-
-
-.left {
-    width: 220px;
-    height: 100%;
-    background-color: #2fa8ec;
-}
-.center {
-    position: absolute;
-    top: 0;
-    left: 220px;
-    right: 200px;
-    bottom: 0;
-    background-color: yellow;
-}
-.right {
-    position: absolute;
-    top: 0;
-    right: 0;
-    width: 200px;
-    height: 100%;
-    background-color: chartreuse;
+#results-panel {
+    grid-column: 1;
 }
