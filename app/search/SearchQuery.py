@@ -10,6 +10,7 @@ ENTITY_TYPE = enums.Entity.Type
 EXCLUDE_ENTITY_TYPES = {ENTITY_TYPE.PHONE_NUMBER, ENTITY_TYPE.ADDRESS, ENTITY_TYPE.LOCATION, ENTITY_TYPE.NUMBER,
                         ENTITY_TYPE.DATE, ENTITY_TYPE.EVENT, ENTITY_TYPE.PRICE}
 
+COMMON_STRINGS = {"doctor", "hospital", "doctors", "hospitals"}
 
 class BadQueryException(Exception):
     def __init__(self, msg=None):
@@ -72,11 +73,13 @@ class SearchQuery:
         if address is None and len(location_entities) > 0:
             locations_geocode = [google_geocode(loc) for loc in location_entities]
             locations = [loc.current_result for loc in locations_geocode if loc.ok]
-        other_entities = [e.name for e in nlp_entities if e.type not in EXCLUDE_ENTITY_TYPES]
+        other_entities = [e.name.lower() for e in nlp_entities if e.type not in EXCLUDE_ENTITY_TYPES]
+
+        strings = [s for s in other_entities if s not in COMMON_STRINGS]
 
         parsed_query = {
             'address': address,
             'locations': locations,
-            'strings': other_entities
+            'strings': strings
         }
         return parsed_query
