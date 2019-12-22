@@ -25,3 +25,16 @@ class Provider(db.Model):
         db.CheckConstraint(lng <= 180, name="Longitude upper range check"),
         {},
     )
+
+    def to_dict(self):
+        return {
+            'id': self.id,
+            'name': self.name,
+            'speciality': self.speciality,
+            'address': self.address,
+            'city': self.city,
+            'state': self.state,
+            'zip': self.zip,
+            'lat': self.lat,
+            'lng': self.lng,
+        }
