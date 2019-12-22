@@ -39,7 +39,7 @@ from app.views import main, user, error
 
 app.register_blueprint(user.userbp)
 
-from app.views.search import searchbp
+from app.search import searchbp
 from app.application import applybp
 
 for bp in [searchbp, applybp]:

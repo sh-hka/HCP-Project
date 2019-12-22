@@ -1,6 +1,6 @@
 from flask import render_template
 from app import app
-from app.views.search import SearchForm
+from app.search import SearchForm
 
 
 @app.route('/')
