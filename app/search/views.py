@@ -3,6 +3,8 @@ from app.search.SearchQuery import (
     BadQueryException,
 )
 
+from app.provider import Provider
+
 from flask import (
     Blueprint,
     render_template,
@@ -28,7 +30,8 @@ def search():
 def results():
     query_data: dict = request.json
     if query_data is None:
-        return jsonify([{}])
+        match = Provider.query.limit(30).all()
+        return jsonify([provider.to_dict() for provider in match])
     query = query_data.get('query', None)
     position = query_data.get('position', None)
     search_range = query_data.get('range', None)
@@ -38,6 +41,7 @@ def results():
             position=position,
             search_range=search_range
         )
+        return jsonify(search_query.search(Provider))
     except BadQueryException as e:
         response = jsonify(error=e.get_msg()), status.HTTP_400_BAD_REQUEST
         return response
