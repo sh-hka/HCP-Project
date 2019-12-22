@@ -36,6 +36,10 @@ def results():
     position = query_data.get('position', None)
     search_range = query_data.get('range', None)
     try:
+        search_range = float(search_range)
+    except ValueError:
+        search_range = None
+    try:
         search_query = SearchQuery(
             query=query,
             position=position,
