@@ -46,7 +46,7 @@
 	<div class="ui search search-bar {% if isExpanded %} raised center aligned {% else %} basic {% endif %} segment" id="search-bar">
 		<div class="ui {% if isExpanded %} huge {% else %} big {% endif %} icon input">
 			{{ form.query(name_=form.query.name, id=form.query.name, placeholder=form.query.description, class_="prompt query") }}
-			<i id="search-icon" class="search icon" onclick="search()"></i>
+			<i id="search-icon" class="search icon"></i>
 		</div>
 		{% if form.query.errors %}
 			<ul>
