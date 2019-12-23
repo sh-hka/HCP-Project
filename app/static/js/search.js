@@ -5,10 +5,12 @@ function generateSearchQuery() {
   var cLatLng = currentPos;
   var range = 30; // Stub
   const range_option = search_bar.querySelector("#search_range");
-  if (range_option !== null) {
-    const range = range_option.value;
+  if (range_option !== null && range_option.value !== "") {
+    range = range_option.value;
   }
-  return  { query: query_string, position: cLatLng, range: range };
+  var query = { query: query_string, position: cLatLng, range: range };
+  console.log(query);
+  return query;
 }
 
 // Init the SearchBar actions
@@ -46,6 +48,9 @@ function searchResults(query) {
       for (let i = 0; i < results_list.length; i++) {
         var result = results_list[i];
         showResult(result);
+        var pos = map.getCenter();
+        currentPos.lat = pos.lat();
+        currentPos.lng = pos.lng();
       }
     }
   });
