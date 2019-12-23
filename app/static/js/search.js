@@ -8,12 +8,16 @@ function generateSearchQuery() {
   if (range_option !== null) {
     const range = range_option.value;
   }
-  var query = { query: query_string, position: cLatLng, range: range };
-  return query;
+  return  { query: query_string, position: cLatLng, range: range };
 }
 
 // Init the SearchBar actions
 function initSearchBar(func) {
+  var search_icon = document.getElementById('search-icon');
+  search_icon.onclick = function (event) {
+    query = generateSearchQuery();
+    func(query);
+  };
   search_bar.onkeydown = function(event) {
     if (event.keyCode === 13) {
       event.preventDefault();
