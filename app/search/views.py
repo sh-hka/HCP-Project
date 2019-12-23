@@ -3,7 +3,10 @@ from app.search.SearchQuery import (
     BadQueryException,
 )
 
+from app import app
+from app.search import SearchForm
 from app.provider import Provider
+
 
 from flask import (
     Blueprint,
@@ -23,7 +26,9 @@ searchbp = Blueprint("searchbp", __name__)
 
 @searchbp.route('/search', methods=["GET"])
 def search():
-    return render_template('layout.html', title='Results')
+    search_form = SearchForm()
+    gmaps_api_key = app.config['GOOGLE_MAPS_API_KEY']
+    return render_template('search.html', title='Search', search_form=search_form, GOOGLE_MAPS_API_KEY=gmaps_api_key)
 
 
 @searchbp.route('/search', methods=['POST'])

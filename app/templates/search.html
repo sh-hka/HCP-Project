@@ -1,0 +1,33 @@
+{% extends "layout.html" %}
+{% import "macros.html" as m %}
+
+{% block head %}
+    {{ super() }}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/search.css') }}">
+	<script src="{{ url_for('static', filename='js/position.js') }}"></script>
+{% endblock %}
+
+{% block content %}
+    {{ m.searchbar(search_form, True) }}
+    <div class="two-grid">
+    <div id="results-panel" class="ui raised segment">
+        <div class="ui block header">Results</div>
+        <div id="results-list" class="ui vertical list"></div>
+    </div>
+    {{ m.map(GOOGLE_MAPS_API_KEY) }}
+    </div>
+
+    <script src="{{ url_for('static', filename='js/results.js') }}"></script>
+
+    <script>
+        var url = window.location.href;
+        var queryStart = url.indexOf("?data=");
+        var query = null;
+        if (queryStart > -1) {
+            var enc_query = url.slice(queryStart + 6);
+            query = JSON.parse(decodeURIComponent(enc_query));
+        }
+        searchResults(query);
+    </script>
+
+{% endblock %}

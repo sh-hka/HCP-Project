@@ -1,5 +1,6 @@
 var map;
 var markers = [];
+var bounds = null;
 
 function initMap() {
     const styledMapType = new google.maps.StyledMapType(
@@ -28,4 +29,5 @@ function initMap() {
         };
         centerMap(map, currentPos);
     });
+    bounds = new google.maps.LatLngBounds();
 }
