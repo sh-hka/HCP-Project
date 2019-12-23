@@ -43,8 +43,8 @@
 {% endmacro %}
 
 {% macro searchbar(form, isExpanded) %}
-	<div class="ui search search-bar {% if isExpanded %} raised {% else %} basic {% endif %} segment" id="search-bar">
-		<div class="ui big icon input">
+	<div class="ui search search-bar {% if isExpanded %} raised center aligned {% else %} basic {% endif %} segment" id="search-bar">
+		<div class="ui {% if isExpanded %} huge {% else %} big {% endif %} icon input">
 			{{ form.query(name_=form.query.name, id=form.query.name, placeholder=form.query.description, class_="prompt query") }}
 			<i id="search-icon" class="search icon" onclick="search()"></i>
 		</div>
@@ -71,7 +71,7 @@
 	<script src="{{  url_for('static', filename='js/search.js') }}"></script>
 
 	<script type="text/javascript">
-		initSearchBar();
+		initSearchBar({% if isExpanded %} searchResults {% else %} search {% endif %});
 	</script>
 
 {% endmacro %}

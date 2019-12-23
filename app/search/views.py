@@ -1,16 +1,10 @@
-from app.search.SearchQuery import (
-    SearchQuery,
-    BadQueryException,
-)
+from app.search.SearchQuery import SearchQuery, BadQueryException
 
+from app import app
+from app.search import SearchForm
 from app.provider import Provider
 
-from flask import (
-    Blueprint,
-    render_template,
-    jsonify,
-    request,
-)
+from flask import Blueprint, render_template, jsonify, request
 
 from flask_api import status
 from urllib.parse import unquote
@@ -23,7 +17,14 @@ searchbp = Blueprint("searchbp", __name__)
 
 @searchbp.route('/search', methods=["GET"])
 def search():
-    return render_template('layout.html', title='Results')
+    search_form = SearchForm()
+    gmaps_api_key = app.config['GOOGLE_MAPS_API_KEY']
+    return render_template(
+        'search.html',
+        title='Search',
+        search_form=search_form,
+        GOOGLE_MAPS_API_KEY=gmaps_api_key,
+    )
 
 
 @searchbp.route('/search', methods=['POST'])
@@ -41,9 +42,7 @@ def results():
         search_range = None
     try:
         search_query = SearchQuery(
-            query=query,
-            position=position,
-            search_range=search_range
+            query=query, position=position, search_range=search_range
         )
         return jsonify(search_query.search(Provider))
     except BadQueryException as e:
