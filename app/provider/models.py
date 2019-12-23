@@ -27,14 +27,15 @@ class Provider(db.Model):
 
     @staticmethod
     def from_dict(d: dict):
-        return Provider(**{
-            'id': d['id'],
-            'name': d['name'],
-            'speciality': d['speciality'],
-            'address': d['address'],
-            'city': d['city'],
-            'state': d['state'],
-            'zip': d['zip'],
-            'lat': float(d['lat']),
-            'lng': float(d['lng'])
-        })
+        return Provider(
+            **{
+                'id': d['id'],
+                'name': d['name'],
+                'speciality': d['speciality'],
+                'address': d['address'],
+                'city': d['city'],
+                'state': d['state'],
+                'zip': d['zip'],
+                'lat': float(d['lat']),
+                'lng': float(d['lng']),
+            })
