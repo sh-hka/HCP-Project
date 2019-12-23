@@ -15,8 +15,8 @@ function generateSearchQuery() {
 
 // Init the SearchBar actions
 function initSearchBar(func) {
-  var search_icon = document.getElementById('search-icon');
-  search_icon.onclick = function (event) {
+  var search_icon = document.getElementById("search-icon");
+  search_icon.onclick = function(event) {
     query = generateSearchQuery();
     func(query);
   };
