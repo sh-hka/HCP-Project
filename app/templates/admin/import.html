@@ -1,6 +1,6 @@
 {% extends 'admin/master.html' %}
 {% block body %}
-    <h3>Please select a CSV file to upload.</h3>
+    <h3>Select a CSV file to import to the database:</h3>
     <form method="POST" action="{{ url_for('provider.import_file') }}" enctype="multipart/form-data">
         <p>{{ form.hidden_tag() }}</p>
         <p>{{ form.file }}</p>

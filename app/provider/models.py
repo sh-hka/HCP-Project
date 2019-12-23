@@ -2,7 +2,6 @@ from app import db
 
 
 class Provider(db.Model):
-
     __tablename__ = 'providers'
 
     id = db.Column(db.Integer,
@@ -25,3 +24,17 @@ class Provider(db.Model):
         db.CheckConstraint(lng <= 180, name="Longitude upper range check"),
         {},
     )
+
+    @staticmethod
+    def from_dict(d: dict, index: int):
+        return Provider(**{
+            'id': index,
+            'name': d['name'],
+            'speciality': d['speciality'],
+            'address': d['address'],
+            'city': d['city'],
+            'state': d['state'],
+            'zip': d['zip'],
+            'lat': float(d['lat']),
+            'lng': float(d['lng'])
+        })

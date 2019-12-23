@@ -52,18 +52,8 @@ class ProviderView(ModelView):
             with StringIO(file_content) as csv_file:
                 csv_file_reader = csv.DictReader(csv_file, fieldnames=CSV_SCHEMA)
                 for index, item in enumerate(csv_file_reader):
-                    record = Provider(**{
-                        'id': index,
-                        'name': item['name'],
-                        'speciality': item['speciality'],
-                        'address': item['address'],
-                        'city': item['city'],
-                        'state': item['state'],
-                        'zip': item['zip'],
-                        'lat': float(item['lat']),
-                        'lng': float(item['lng'])
-                    })
-                    # merge will update or insert if the entry does not exist
+                    record = Provider.from_dict(item, index)
+                    # Merge updates or inserts the record if it does not exist
                     db.session.merge(record)
                 db.session.commit()
 
