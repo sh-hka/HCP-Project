@@ -8,11 +8,14 @@
 .map {
     position: relative;
     width: auto;
+    height: auto;
     grid-column: 2;
 }
 
 #results-panel {
     grid-column: 1;
+    overflow-y: scroll;
+    height: 75vh;
 }
 
 .ui.card {

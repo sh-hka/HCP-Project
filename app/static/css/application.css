@@ -1,6 +1,7 @@
 .application {
     min-width: 516px;
     width: 60vw !important;
+    margin: 5em auto 2em auto !important;
 }
 
 .ui.form .fields {
