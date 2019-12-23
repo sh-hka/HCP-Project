@@ -18,7 +18,6 @@ from flask_sqlalchemy import SQLAlchemy
 
 db = SQLAlchemy(app)
 
-from app.models import User
 from app.provider import Provider
 from app.application import Application
 
@@ -35,27 +34,12 @@ app.config['DEBUG_TB_PROFILER_ENABLED'] = True
 toolbar = DebugToolbarExtension(app)
 
 # Import the views
-from app.views import main, user, error
-
-app.register_blueprint(user.userbp)
+from app.views import main, error
 
 from app.search import searchbp
 from app.application import applybp
 
 for bp in [searchbp, applybp]:
     app.register_blueprint(bp)
-
-# Setup the user login process
-from flask_login import LoginManager
-
-login_manager = LoginManager()
-login_manager.init_app(app)
-login_manager.login_view = "userbp.signin"
-
-
-@login_manager.user_loader
-def load_user(email):
-    return User.query.filter(User.email == email).first()
-
 
 from app import admin

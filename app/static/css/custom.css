@@ -29,12 +29,6 @@ body {
 
 /* Forms */
 
-.form-user {
-   width: 33% !important;
-   margin: 0 auto !important;
-   margin-top: 10% !important;
-}
-
 .form-error {
    color: #E50000 !important;
 }

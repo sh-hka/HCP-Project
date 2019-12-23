@@ -2,14 +2,11 @@ from app import db
 
 
 class Provider(db.Model):
-
     __tablename__ = 'providers'
 
-    id = db.Column(db.Integer,
-                   nullable=False,
-                   autoincrement=True,
-                   primary_key=True)
-    name = db.Column(db.String, nullable=False, unique=True)
+    id = db.Column(db.Integer, nullable=False,
+                   autoincrement=True, primary_key=True)
+    name = db.Column(db.String, nullable=False)
     speciality = db.Column(db.String)
     address = db.Column(db.String, nullable=False)
     city = db.Column(db.String, nullable=False)
@@ -25,6 +22,22 @@ class Provider(db.Model):
         db.CheckConstraint(lng <= 180, name="Longitude upper range check"),
         {},
     )
+
+    @staticmethod
+    def from_dict(d: dict):
+        return Provider(
+            **{
+                'id': d['id'],
+                'name': d['name'],
+                'speciality': d['speciality'],
+                'address': d['address'],
+                'city': d['city'],
+                'state': d['state'],
+                'zip': d['zip'],
+                'lat': float(d['lat']),
+                'lng': float(d['lng']),
+            }
+        )
 
     def to_dict(self):
         return {
