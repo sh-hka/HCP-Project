@@ -29,12 +29,6 @@ body {
 
 /* Forms */
 
-.form-user {
-   width: 33% !important;
-   margin: 0 auto !important;
-   margin-top: 10% !important;
-}
-
 .form-error {
    color: #E50000 !important;
 }
@@ -53,7 +47,7 @@ body {
 
 .map {
    /* *Initial* map height to ensure that the map displays. */
-   width: 100vh;
+   width: 100vw;
    height: 100vh;
 }
 

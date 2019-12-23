@@ -25,20 +25,24 @@ jobs:
         # exit-zero treats all errors as warnings. The GitHub editor is 127 chars wide
         flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
     - name: Setup Test requirements
-      env:
-        GOOGLE_MAPS_API_KEY: ${{ secrets.GOOGLE_MAPS_API_KEY }}
-        HCP_ADMIN: ${{ secrets.HCP_ADMIN }}
-        HCP_PASS: ${{ secrets.HCP_PASS }}
       run: |
         pip install pytest
         pip install flask_api
-        make dev
-        python manage.py initdb
+    - name: Setup Application requirements
+      env:
+        GOOGLE_NLP_CRED_FILE: ${{ secrets.GOOGLE_NLP_CRED_FILE }}
+        GOOGLE_APPLICATION_CREDENTIALS: ./GOOGLE_NLP_CRED.json
+      run: |
+        echo $GOOGLE_NLP_CRED_FILE > $GOOGLE_APPLICATION_CREDENTIALS
     - name: Run Test
       env:
         GOOGLE_MAPS_API_KEY: ${{ secrets.GOOGLE_MAPS_API_KEY }}
+        GOOGLE_API_KEY: ${{ secrets.GOOGLE_GEOCODE_API_KEY }}
+        GOOGLE_APPLICATION_CREDENTIALS: ./GOOGLE_NLP_CRED.json
         HCP_ADMIN: ${{ secrets.HCP_ADMIN }}
         HCP_PASS: ${{ secrets.HCP_PASS }}
       run: |
+        make dev
+        python manage.py initdb
         # Set pytest to ignore any DeprecationWarnings, as WTForms is generating 26 warnings
         pytest -v -W ignore::DeprecationWarning app/test_app.py

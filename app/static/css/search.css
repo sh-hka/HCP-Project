@@ -1,0 +1,23 @@
+.two-grid {
+    display: grid;
+    grid-template-columns: 2fr 3fr;
+    grid-gap: 1em;
+    padding-left: 1em;
+}
+
+.map {
+    position: relative;
+    width: auto;
+    height: auto;
+    grid-column: 2;
+}
+
+#results-panel {
+    grid-column: 1;
+    overflow-y: scroll;
+    height: 75vh;
+}
+
+.ui.card {
+    width: auto;
+}

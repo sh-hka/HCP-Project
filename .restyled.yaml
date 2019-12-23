@@ -179,5 +179,12 @@ restylers_version: "20191031"
 #
 
 restylers:
-     - name: black
-       arguments: ["--skip-string-normalization"]
+  - yapf
+  - name: black
+    arguments:
+      - "--skip-string-normalization"
+  - prettier
+  - prettier-markdown
+  - prettier-yaml
+  - name: autopep8
+    command: [autopep8, "-i", "--ignore", "E402"]

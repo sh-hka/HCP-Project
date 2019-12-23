@@ -9,7 +9,7 @@ PROJECT    := $(shell basename $(PWD))
 ## Install dependencies
 .PHONY: install
 install:
-	pip install -r requirements.txt
+	python3 -m pip install -r --user requirements.txt
 
 ## Setup developpement environment
 .PHONY: dev

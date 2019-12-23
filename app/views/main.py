@@ -1,25 +1,16 @@
-from flask import render_template, jsonify
+from flask import render_template
 from app import app
-from app.forms import search as search_form
+from app.search import SearchForm
 
 
 @app.route('/')
 @app.route('/index')
 def index():
-    form = search_form.Search()
-    return render_template('index.html', form=form, title='Home')
+    form = SearchForm()
+    gmaps_api_key = app.config['GOOGLE_MAPS_API_KEY']
+    return render_template('index.html', form=form, title='Home', GOOGLE_MAPS_API_KEY=gmaps_api_key)
 
 
 @app.route('/contact')
 def contact():
     return render_template('contact.html', title='Contact')
-
-
-@app.route('/search', methods=['GET'])
-def search():
-    return render_template('layout.html', title='Results')
-
-
-@app.route('/search', methods=['POST'])
-def results():
-    return jsonify({})

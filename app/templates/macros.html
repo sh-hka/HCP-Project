@@ -14,9 +14,9 @@
 {% endmacro %}
 
 <!-- Render a WTForm form's field (with it's possible associated errors) from a WTForms form -->
-{% macro render_field(field) %}
-	<div class="field">
-		{{ field(name_=field.name, id=field.name, placeholder=field.description, class_="field") }}
+{% macro render_field(field, width='', value='') %}
+	<div class="{% if width != '' %}{{ width + ' wide '}}{% endif %}field">
+		{{ field(name_=field.name, id=field.name, placeholder=field.description, class_="field", value=value) }}
 	</div>
 	{% if field.errors %}
 		<ul>
@@ -27,7 +27,7 @@
 	{% endif %}
 {% endmacro %}
 
-{% macro map() %}
+{% macro map(GOOGLE_MAPS_API_KEY) %}
 
 	<script type="text/javascript" src="{{ url_for('static', filename='js/map/map-utils.js') }}"></script>
 
@@ -38,15 +38,15 @@
 
 	{#  Google Maps API  #}
 	<script
-		src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCsxsfZbJtPVehGHrovzrTexLcEXURkUag&callback=initMap&libraries=geometry">
+		src="https://maps.googleapis.com/maps/api/js?key={{ GOOGLE_MAPS_API_KEY }}&callback=initMap&libraries=geometry">
 	</script>
 {% endmacro %}
 
 {% macro searchbar(form, isExpanded) %}
-	<div class="ui search search-bar {% if isExpanded %} raised {% else %} basic {% endif %} segment" id="search-bar">
-		<div class="ui big icon input">
+	<div class="ui search search-bar {% if isExpanded %} raised center aligned {% else %} basic {% endif %} segment" id="search-bar">
+		<div class="ui {% if isExpanded %} huge {% else %} big {% endif %} icon input">
 			{{ form.query(name_=form.query.name, id=form.query.name, placeholder=form.query.description, class_="prompt query") }}
-			<i id="search-icon" class="search icon" onclick="search()"></i>
+			<i id="search-icon" class="search icon"></i>
 		</div>
 		{% if form.query.errors %}
 			<ul>
@@ -71,7 +71,7 @@
 	<script src="{{  url_for('static', filename='js/search.js') }}"></script>
 
 	<script type="text/javascript">
-		initSearchBar();
+		initSearchBar({% if isExpanded %} searchResults {% else %} search {% endif %});
 	</script>
 
 {% endmacro %}
