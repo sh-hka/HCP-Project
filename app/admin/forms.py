@@ -56,14 +56,14 @@ class CSVFileValidator(object):
             # Check that the CSV file's schema at least contains what our database requires
             for item in CSV_SCHEMA:
                 if item not in file_csv_schema:
-                    raise ValidationError(self.header_message +
-                                          u' Missing column: {}'.format(item))
+                    raise ValidationError(
+                        self.header_message +
+                        u' Missing column: {}'.format(item)
+                    )
 
 
 class ProviderImportForm(Form):
     file = FileField(
-        validators=[FileRequired(),
-                    FileSizeValidator(),
-                    CSVFileValidator()],
+        validators=[FileRequired(), FileSizeValidator(), CSVFileValidator()],
         description="Import Provider data from CSV file.",
     )

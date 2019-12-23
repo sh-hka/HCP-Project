@@ -4,10 +4,8 @@ from app import db
 class Provider(db.Model):
     __tablename__ = 'providers'
 
-    id = db.Column(db.Integer,
-                   nullable=False,
-                   autoincrement=True,
-                   primary_key=True)
+    id = db.Column(db.Integer, nullable=False,
+                   autoincrement=True, primary_key=True)
     name = db.Column(db.String, nullable=False)
     speciality = db.Column(db.String)
     address = db.Column(db.String, nullable=False)
@@ -38,7 +36,8 @@ class Provider(db.Model):
                 'zip': d['zip'],
                 'lat': float(d['lat']),
                 'lng': float(d['lng']),
-            })
+            }
+        )
 
     def to_dict(self):
         return {

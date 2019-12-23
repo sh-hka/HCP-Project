@@ -21,9 +21,12 @@ admin = Admin(app, name="Admin", template_mode="bootstrap3")
 class ModelView(ModelView):
     def is_accessible(self):
         auth = request.authorization or request.environ.get(
-            "REMOTE_USER")  # workaround for Apache
-        if (not auth or
-            (auth.username, auth.password) != app.config["ADMIN_CREDENTIALS"]):
+            "REMOTE_USER"
+        )  # workaround for Apache
+        if (
+            not auth
+            or (auth.username, auth.password) != app.config["ADMIN_CREDENTIALS"]
+        ):
             raise HTTPException(
                 "",
                 Response(
@@ -41,8 +44,9 @@ class ApplicationView(ModelView):
 
 class ProviderView(ModelView):
     can_export = True
-    list_template = ('admin/providers.html'
-                     )  # Extending the list view to allow for CSV import
+    list_template = (
+        'admin/providers.html'
+    )  # Extending the list view to allow for CSV import
 
     @expose('/import', methods=['GET', 'POST'])
     def import_file(self):
@@ -51,8 +55,8 @@ class ProviderView(ModelView):
             # Coerce form.file.data to a stream to read CSV data
             file_content = form.file.data.stream.read().decode('utf-8')
             with StringIO(file_content) as csv_file:
-                csv_file_reader = csv.DictReader(csv_file,
-                                                 fieldnames=CSV_SCHEMA)
+                csv_file_reader = csv.DictReader(
+                    csv_file, fieldnames=CSV_SCHEMA)
                 next(csv_file_reader)  # Skip the header row
                 for item in csv_file_reader:
                     record = Provider.from_dict(item)
