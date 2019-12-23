@@ -36,7 +36,7 @@ toolbar = DebugToolbarExtension(app)
 # Import the views
 from app.views import main, error
 
-from app.views.search import searchbp
+from app.search import searchbp
 from app.application import applybp
 
 for bp in [searchbp, applybp]:

@@ -39,3 +39,16 @@ class Provider(db.Model):
                 'lat': float(d['lat']),
                 'lng': float(d['lng']),
             })
+
+    def to_dict(self):
+        return {
+            'id': self.id,
+            'name': self.name,
+            'speciality': self.speciality,
+            'address': self.address,
+            'city': self.city,
+            'state': self.state,
+            'zip': self.zip,
+            'lat': self.lat,
+            'lng': self.lng,
+        }
