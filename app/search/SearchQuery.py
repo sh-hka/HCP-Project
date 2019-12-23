@@ -47,12 +47,13 @@ class SearchQuery:
         # Strings
         string_filters = []
         strings = self.parsed_query['strings']
-        for col in [provider.name, provider.address, provider.speciality]:
-            string_filters.append(or_(col.ilike(string) for string in strings))
-        if len(strings) > 0 and len(string_filters) > 0:
+        if len(strings) > 0:
+            for col in [provider.name, provider.address, provider.speciality]:
+                string_filters.append(or_(col.ilike(string) for string in strings))
             query = query.filter(or_(*string_filters))
         # Location
         if self.parsed_query['address'] is not None:
+            # Address - singular location
             bbox = self.parsed_query['address'].bbox
             query = query.filter(self.__in_bbox(provider, bbox))
             matches = [match.to_dict for match in query.limit(30).all()]
