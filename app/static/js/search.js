@@ -5,15 +5,21 @@ function generateSearchQuery() {
   var cLatLng = currentPos;
   var range = 30; // Stub
   const range_option = search_bar.querySelector("#search_range");
-  if (range_option !== null) {
-    const range = range_option.value;
+  if (range_option !== null && range_option.value !== "") {
+    range = range_option.value;
   }
   var query = { query: query_string, position: cLatLng, range: range };
+  console.log(query);
   return query;
 }
 
 // Init the SearchBar actions
 function initSearchBar(func) {
+  var search_icon = document.getElementById("search-icon");
+  search_icon.onclick = function(event) {
+    query = generateSearchQuery();
+    func(query);
+  };
   search_bar.onkeydown = function(event) {
     if (event.keyCode === 13) {
       event.preventDefault();
@@ -42,6 +48,9 @@ function searchResults(query) {
       for (let i = 0; i < results_list.length; i++) {
         var result = results_list[i];
         showResult(result);
+        var pos = map.getCenter();
+        currentPos.lat = pos.lat();
+        currentPos.lng = pos.lng();
       }
     }
   });
