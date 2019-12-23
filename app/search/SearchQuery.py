@@ -47,10 +47,12 @@ class SearchQuery:
         # Strings
         string_filters = []
         strings = self.parsed_query['strings']
+        partial = []
         if len(strings) > 0:
-            for col in [provider.name, provider.address, provider.speciality]:
+            for col in [provider.name, provider.address, provider.speciality, provider.city, provider.state]:
                 string_filters.append(or_(col.ilike(string) for string in strings))
             query = query.filter(or_(*string_filters))
+            partial = query.limit(51).all()
         # Location
         if self.parsed_query['address'] is not None:
             # Address - singular location
@@ -65,7 +67,7 @@ class SearchQuery:
                 location_filters.append(self.__in_bbox(provider, bbox))
             query = query.filter(or_(*location_filters))
             matches = [match.to_dict() for match in query.limit(30).all()]
-        elif self.position is not None and self.range is not None:
+        elif self.position is not None and self.range is not None and len(partial) >= 50:
             def dist(lat, lng):
                 p = pi/180
                 lat1, lng1 = self.position['lat']*p, self.position['lng']*p
