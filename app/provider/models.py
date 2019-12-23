@@ -1,5 +1,7 @@
 from app import db
 
+CSV_SCHEMA = ['id', 'name', 'speciality', 'address', 'city', 'state', 'zip', 'lat', 'lng']
+
 
 class Provider(db.Model):
     __tablename__ = 'providers'
@@ -26,9 +28,9 @@ class Provider(db.Model):
     )
 
     @staticmethod
-    def from_dict(d: dict, index: int):
+    def from_dict(d: dict):
         return Provider(**{
-            'id': index,
+            'id': d['id'],
             'name': d['name'],
             'speciality': d['speciality'],
             'address': d['address'],

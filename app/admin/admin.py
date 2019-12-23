@@ -51,8 +51,9 @@ class ProviderView(ModelView):
             file_content = form.file.data.stream.read().decode('utf-8')
             with StringIO(file_content) as csv_file:
                 csv_file_reader = csv.DictReader(csv_file, fieldnames=CSV_SCHEMA)
-                for index, item in enumerate(csv_file_reader):
-                    record = Provider.from_dict(item, index)
+                next(csv_file_reader)  # Skip the header row
+                for item in csv_file_reader:
+                    record = Provider.from_dict(item)
                     # Merge updates or inserts the record if it does not exist
                     db.session.merge(record)
                 db.session.commit()
