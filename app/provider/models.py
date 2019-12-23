@@ -9,7 +9,7 @@ class Provider(db.Model):
                    nullable=False,
                    autoincrement=True,
                    primary_key=True)
-    name = db.Column(db.String, nullable=False, unique=True)
+    name = db.Column(db.String, nullable=False)
     speciality = db.Column(db.String)
     address = db.Column(db.String, nullable=False)
     city = db.Column(db.String, nullable=False)
