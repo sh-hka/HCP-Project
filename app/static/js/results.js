@@ -66,7 +66,7 @@ function getResultCard(result) {
   bttn.classList.add("button");
   bttn.innerHTML = "Apply";
   bttn.onclick = function() {
-    const url = "/apply?provider=" + id;
+    const url = "/apply?provider=" + result.id;
     window.location = url;
   };
   bttn_container.appendChild(bttn);
