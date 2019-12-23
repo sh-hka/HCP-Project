@@ -47,18 +47,18 @@ class ProviderView(ModelView):
     def import_file(self):
         form = ProviderImportForm()
         if form.validate_on_submit():
-            # form.file.data returns a Workzeug FileStorage object, .stream returns the tempfile w/CSV data in bytearray
+            # Coerce form.file.data to a stream to read CSV data
             file_content = form.file.data.stream.read().decode('utf-8')
             with StringIO(file_content) as csv_file:
                 csv_file_reader = csv.DictReader(csv_file, fieldnames=CSV_SCHEMA)
                 next(csv_file_reader)  # Skip the header row
                 for item in csv_file_reader:
                     record = Provider.from_dict(item)
-                    # Merge updates or inserts the record if it does not exist
+                    # Update or insert the record into the db.
                     db.session.merge(record)
                 db.session.commit()
 
-            flash('Providers imported successfully.')
+            flash('Provider info imported successfully.')
             return redirect(url_for('provider.index_view'))
         return self.render('admin/import.html', form=form)
 

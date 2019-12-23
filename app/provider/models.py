@@ -1,7 +1,5 @@
 from app import db
 
-CSV_SCHEMA = ['id', 'name', 'speciality', 'address', 'city', 'state', 'zip', 'lat', 'lng']
-
 
 class Provider(db.Model):
     __tablename__ = 'providers'

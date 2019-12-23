@@ -1,7 +1,8 @@
 from flask_wtf import FlaskForm as Form
 from flask_wtf.file import FileField, FileRequired
 from wtforms import ValidationError
-from app.provider.models import CSV_SCHEMA
+
+CSV_SCHEMA = ['id', 'name', 'speciality', 'address', 'city', 'state', 'zip', 'lat', 'lng']
 
 
 class FileSizeValidator(object):
