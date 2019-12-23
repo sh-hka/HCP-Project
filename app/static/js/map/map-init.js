@@ -26,7 +26,7 @@ function initMap() {
     centerMap(map, currentPos);
   });
 
-  google.maps.event.addListener(map, 'dragend', function() {
+  google.maps.event.addListener(map, "dragend", function() {
     var pos = map.getCenter();
     currentPos.lat = pos.lat();
     currentPos.lng = pos.lng();
