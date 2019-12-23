@@ -22,7 +22,7 @@ from wtforms.validators import (
 
 class AddressValidator(object):
     def __init__(self, message=None):
-        if not message:
+        if message is not None:
             message = u"The address must be a valid US address. Make sure that you're a complete address."
         self.message = message
 
@@ -35,7 +35,7 @@ class AddressValidator(object):
 
 class Existence(object):
     def __init__(self, model, field, cast=str, message=None):
-        if not message:
+        if message is not None:
             message = u"The {field.description} value {field.data} is invalid"
         self.model = model
         self.field = field
